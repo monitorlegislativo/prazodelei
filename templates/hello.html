@@ -1,0 +1,16 @@
+<!doctype html>
+<title>Tramitacao diaria</title>
+
+<h1>Tramitou em {{data_inicio}}</h1>
+{% for p in lista %}
+    <h2><p>{{p.nome}}</p></h2>
+    <p><b>{{p.ultimo}}</b></p>
+    <p><b>{{p.autor}}</b></p>
+    <p><i>{{p.ementa}}</i></p>
+    <ul>
+    {% for a in p.indexacao %}
+    	<li>{{a}}</li>
+    {% endfor %}
+    </ul>
+    <hr />
+{% endfor %}

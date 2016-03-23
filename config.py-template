@@ -1,0 +1,6 @@
+settings = {}
+settings['SMTP_SERVER'] = 'smtp.gmail.com'
+settings['SMTP_PORT'] = 587
+
+settings['EMAIL_USER'] = 'user@gmail.com'
+settings['EMAIL_PASS'] = 'password'

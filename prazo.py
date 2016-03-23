@@ -25,7 +25,7 @@ def getProposicoes(data_inicio, data_fim):
         prop['nome'] = soup.xpath('//nomeProposicao')[0].text
         prop['ultimo'] = soup.xpath('//UltimoDespacho')[0].text
         prop['ementa'] = soup.xpath('//Ementa')[0].text
-        prop['autor'] = soup.xpath('//Autor')[0].text + "/" + soup.xpath('//ufAutor')[0].text + "(" + soup.xpath('//partidoAutor')[0].text + ")"
+        prop['autor'] = soup.xpath('//Autor')[0].text + "/" + soup.xpath('//ufAutor')[0].text + "(" + soup.xpath('//partidoAutor')[0].text.strip() + ")"
         prop['indexacao'] = [x.strip() for x in soup.xpath('//Indexacao')[0].text.split(',')]
         lista.append(prop)
     with open("dados/"+data_inicio+".json", "w") as arquivo:

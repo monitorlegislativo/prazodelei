@@ -5,7 +5,8 @@ import json
 
 def getProposicoes(data_inicio, data_fim):
     data_in = data_inicio.replace('-','/')
-    url = "http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoesTramitadasNoPeriodo?dtInicio="+data_in+"&dtFim="+data_in
+    data_en = data_fim.replace('-','/')
+    url = "http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoesTramitadasNoPeriodo?dtInicio="+data_in+"&dtFim="+data_en
     print url
     soup = parse(urllib2.urlopen(url)).getroot()
     

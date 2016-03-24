@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import sys
+import sys,os
 import json
 from pprint import pprint
 import smtplib
 from config import *
+import prazo
+
 
 server = smtplib.SMTP(settings['SMTP_SERVER'], settings['SMTP_PORT'])
 
@@ -14,7 +16,11 @@ recipient = ''
 if len(sys.argv) > 3:
 	recipient = sys.argv[3]
 
-lista = json.load(open("dados/"+data_inicio+".json", 'r'))   
+if os.path.isfile("dados/"+data_inicio+".json"):
+	lista = json.load(open("dados/"+data_inicio+".json", 'r'))   
+else:
+	lista = prazo.getProposicoes(data_inicio, data_inicio)
+
 
 selecionados = []
 for pl in lista:

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import urllib2
 from lxml.etree import parse
 import json
@@ -7,8 +8,13 @@ def getProposicoes(data_inicio, data_fim):
     data_in = data_inicio.replace('-','/')
     data_en = data_fim.replace('-','/')
     url = "http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoesTramitadasNoPeriodo?dtInicio="+data_in+"&dtFim="+data_en
-    print url
-    soup = parse(urllib2.urlopen(url)).getroot()
+    try:
+        soup = parse(urllib2.urlopen(url)).getroot()
+    except:
+        print "Erro: Provavelmente não teve sessão esse dia."
+        print url
+        exit()
+        
     
     proposicoes = []
     for p in soup.xpath('//proposicao'):
@@ -27,7 +33,7 @@ def getProposicoes(data_inicio, data_fim):
         prop['ultimo'] = soup.xpath('//UltimoDespacho')[0].text
         prop['ementa'] = soup.xpath('//Ementa')[0].text
         prop['autor'] = soup.xpath('//Autor')[0].text + "/" + soup.xpath('//ufAutor')[0].text + "(" + soup.xpath('//partidoAutor')[0].text.strip() + ")"
-        prop['indexacao'] = [x.strip() for x in soup.xpath('//Indexacao')[0].text.split(',')]
+        prop['indexacao'] = [x.strip().upper() for x in soup.xpath('//Indexacao')[0].text.split(',')]
         lista.append(prop)
     with open("dados/"+data_inicio+".json", "w") as arquivo:
         arquivo.write(json.dumps(lista, indent=4))
